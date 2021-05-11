@@ -1,0 +1,38 @@
+{
+  "name": "web-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "scripts": {
+    "build": "run-p build:*",
+    "build:cp": "cpx -C public/** build/",
+    "build:build": "NODE_ENV=\"production\" ts-node ./build.ts",
+    "start": "run-p watch:*",
+    "watch:cp": "cpx -C public/** build/",
+    "watch:build": "sh -exec 'NODE_ENV=\\\"development\\\" ts-node ./build.ts'",
+    "watch:serve": "wait-on build/index.js && reload -d build -b"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.41",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "cpx": "^1.5.0",
+    "esbuild": "^0.11.14",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "reload": "^3.1.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4",
+    "wait-on": "^5.3.0"
+  }
+}
