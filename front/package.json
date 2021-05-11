@@ -4,16 +4,18 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "global": "^4.4.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "serve": "^11.3.2"
   },
   "scripts": {
     "build": "run-p build:*",
     "build:cp": "cpx -C public/** build/",
-    "build:build": "NODE_ENV=\"production\" ts-node ./build.ts",
+    "build:build": "ts-node ./build.ts",
     "start": "run-p watch:*",
     "watch:cp": "cpx -C public/** build/",
-    "watch:build": "sh -exec 'NODE_ENV=\\\"development\\\" ts-node ./build.ts'",
+    "watch:build": "sh -exec 'NODE_ENV=\\\"development\\\" BUILD_TYPE=\\\"watch\\\" ts-node ./build.ts'",
     "watch:serve": "wait-on build/index.js && reload -d build -b"
   },
   "devDependencies": {

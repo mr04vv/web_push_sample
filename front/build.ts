@@ -1,5 +1,6 @@
 import { build, BuildFailure, BuildResult } from 'esbuild';
 const isDev = process.env.NODE_ENV === '"development"';
+const isWatch = process.env.BUILD_TYPE === '"watch"';
 
 build({
   define: { 'process.env.NODE_ENV': process.env.NODE_ENV as string },
@@ -10,7 +11,7 @@ build({
   bundle: true,
   minify: !isDev,
   sourcemap: isDev,
-  watch: {
+  watch: isWatch && {
     onRebuild(err: BuildFailure | null, result: BuildResult | null) {
       console.log(JSON.stringify(err?.errors));
       console.log(JSON.stringify(result?.warnings));
