@@ -20,33 +20,34 @@ const App = () => {
     const messaging = firebase.messaging();
 
     console.debug(navigator.serviceWorker);
-
-    navigator.serviceWorker
-      .register('./firebase-messaging-sw.js')
-      .then(() => {
-        return navigator.serviceWorker.ready;
-      })
-      .then((registration) => {
-        console.debug(messaging);
-        messaging
-          .getToken({
-            vapidKey:
-              'BNyGSX3u7L1j5K6IfNCHp-svJAIhL7Qeyej4SGhgVFlWUlimiu23TJ5KZ3drJmbVrcfd2WlTpFXdnXrOuxleEK4',
-            serviceWorkerRegistration: registration,
-          })
-          .then((token) => {
-            setToken(token);
-            // 取得した Firebase トークンをサーバーへ送信
-          })
-          .catch((error) => {
-            console.debug(error);
-            // Firebase トークンの取得に失敗した場合
-          });
-      })
-      .catch((error) => {
-        console.debug(error);
-        // Service Worker スクリプトの登録に失敗した場合
-      });
+    if (navigator.serviceWorker.ready) {
+      navigator.serviceWorker
+        .register('./firebase-messaging-sw.js')
+        .then(() => {
+          return navigator.serviceWorker.ready;
+        })
+        .then((registration) => {
+          console.debug(messaging);
+          messaging
+            .getToken({
+              vapidKey:
+                'BNyGSX3u7L1j5K6IfNCHp-svJAIhL7Qeyej4SGhgVFlWUlimiu23TJ5KZ3drJmbVrcfd2WlTpFXdnXrOuxleEK4',
+              serviceWorkerRegistration: registration,
+            })
+            .then((token) => {
+              setToken(token);
+              // 取得した Firebase トークンをサーバーへ送信
+            })
+            .catch((error) => {
+              console.debug(error);
+              // Firebase トークンの取得に失敗した場合
+            });
+        })
+        .catch((error) => {
+          console.debug(error);
+          // Service Worker スクリプトの登録に失敗した場合
+        });
+    }
   }, []);
 
   const sendNotifyRequest = async () => {
