@@ -22,6 +22,7 @@ self.addEventListener('push', (event) => {
   const title = data.notification.title;
   const body = data.notification.body;
   const url = data.notification.click_action;
+  console.debug('recieved notification');
 
   self.registration.showNotification(title, {
     icon: '/img/web_push_icon.png',

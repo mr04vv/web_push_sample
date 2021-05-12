@@ -64,11 +64,17 @@ const App = () => {
     <div>
       <div>web push no sample dayooo</div>
       {!token && <div>getting fcm token...</div>}
-      {token && <button onClick={() => sendNotifyRequest()}>notify</button>}
       {token && (
-        <button onClick={() => sendSleepNotifyRequest()}>
-          notify after 4seconds
-        </button>
+        <div>
+          <button onClick={() => sendNotifyRequest()}>notify</button>
+        </div>
+      )}
+      {token && (
+        <div>
+          <button onClick={() => sendSleepNotifyRequest()}>
+            notify after 4seconds
+          </button>
+        </div>
       )}
     </div>
   );
