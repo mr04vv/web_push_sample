@@ -15,7 +15,14 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const App = () => {
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    console.log(event.data);
+    if (typeof event.data === 'string') {
+      document.title = event.data + title;
+    }
+  });
   const [token, setToken] = useState<String>();
+  const title = document.title;
   useEffect(() => {
     const messaging = firebase.messaging();
 

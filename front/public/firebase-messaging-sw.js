@@ -7,7 +7,7 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-self.addEventListener('push', (event) => {
+self.addEventListener('push', async (event) => {
   // event.data は、以下のような JSON だとします
   //
   // {
@@ -17,6 +17,8 @@ self.addEventListener('push', (event) => {
   //     "url": "https://freshlive.tv"
   //   }
   // }
+  self.clients.matchAll().then(clients =>
+    clients.forEach(client => client.postMessage('(通知があるよおお)')));
 
   const data = event.data.json();
   const title = data.notification.title;
@@ -30,6 +32,9 @@ self.addEventListener('push', (event) => {
     data: { url },
   });
 });
+    // クライアントにアクセスできない場合は、早期に終了します。
+    // 例えば、クロスオリジンの場合。
+
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
@@ -37,3 +42,5 @@ self.addEventListener('notificationclick', (event) => {
   // Web Push 通知が指定した URL に遷移する
   event.waitUntil(self.clients.openWindow(event.notification.data.url));
 });
+
+
